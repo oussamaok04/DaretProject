@@ -16,7 +16,9 @@ public class GroupServiceIMPH2 implements GroupService {
     GroupRepository groupRepository;
 
     @Autowired
-    public GroupServiceIMPH2(GroupRepository groupRepository) {}
+    public GroupServiceIMPH2(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
 
     @Override
     public Group createGroup(Group group) {
