@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 public class GroupMember {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupId;
+    private Long groupMemberId;
     @ManyToOne
-    @JoinColumn(name = "group_id")
     private Group group;
 }
