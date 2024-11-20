@@ -22,7 +22,7 @@ public class ContributionServiceH2Impl implements ContributionService {
 
     @Override
     public Contribution getContributionById(Long id) {
-        return contributionRepository.getReferenceById(id);
+        return contributionRepository.findById(id).get();
     }
 
     @Override
