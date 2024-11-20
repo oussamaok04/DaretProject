@@ -22,7 +22,7 @@ public class ContributionController {
         return contributionService.getContributionById(id);
     }
 
-    @PostMapping("/contribution/save")
+    @PostMapping("/contributions/save")
     public Contribution saveContribution(@RequestBody Contribution contribution) {
         return contributionService.createContribution(contribution);
     }
