@@ -2,18 +2,23 @@ spring:
   application:
     name: GetwayService
   cloud:
-    gateway:
-        routes:
-          - id : r1
-            uri: http://localhost:8083/
-            predicates:
-              - Path=/contributions/**
-          - id: r2
-            uri: http://localhost:8082/
-            predicates:
-              - Path=/group/**
+#    gateway:
+#        routes:
+#          - id : r1
+#            uri: http://localhost:8083/
+#            predicates:
+#              - Path=/contributions/**
+#          - id: r2
+#            uri: http://localhost:8082/
+#            predicates:
+#              - Path=/group/**
     discovery:
-      enabled: false
+      enabled: true
+
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
 
 server:
   port: 8080
