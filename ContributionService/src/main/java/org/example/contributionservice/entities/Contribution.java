@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -16,5 +17,6 @@ public class Contribution {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contributionId;
     private Double amount;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate contributionDate;
 }
