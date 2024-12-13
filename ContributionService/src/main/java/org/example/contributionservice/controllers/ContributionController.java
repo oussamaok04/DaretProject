@@ -12,6 +12,11 @@ public class ContributionController {
     @Autowired
     private ContributionService contributionService;
 
+    @GetMapping("/")
+    public String hello(){
+        return "Hello to contribution service";
+    }
+
     @GetMapping("/contributions/all")
     public List<Contribution> getAllContributions() {
         return contributionService.getAllContributions();

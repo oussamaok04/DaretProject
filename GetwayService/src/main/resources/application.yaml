@@ -1,7 +1,10 @@
 spring:
   application:
-    name: GetwayService
-  cloud:
+    name: gateway-service
+
+  config:
+    import: optional:configserver:http://localhost:8090
+#  cloud:
 #    gateway:
 #        routes:
 #          - id : r1
@@ -12,15 +15,28 @@ spring:
 #            uri: http://localhost:8082/
 #            predicates:
 #              - Path=/group/**
-    discovery:
-      enabled: true
+######################### static eureka ##################
+#    gateway:
+#        routes:
+#          - id : r1
+#            uri: lb://CONTRIBUTIONSERVICE
+#            predicates:
+#              - Path=/contributions/**
+#          - id: r2
+#            uri: lb://GROUPSERVICE
+#            predicates:
+#              - Path=/group/**
+#    discovery:
+#      enabled: true
+#
+#    gateway:
+#      discovery:
+#        locator:
+#          lower-case-service-id: true
 
-    gateway:
-      discovery:
-        locator:
-          lower-case-service-id: true
+#server:
+#  port: 8080
 
-server:
-  port: 8080
+
 
 
