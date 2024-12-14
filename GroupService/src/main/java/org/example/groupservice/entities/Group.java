@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor  @AllArgsConstructor
@@ -14,4 +17,7 @@ public class Group {
     private Long groupId;
     private String groupName;
     private String description;
+
+    @OneToMany(mappedBy = "group")
+    List<GroupMember> members;
 }
