@@ -2,6 +2,7 @@ package org.example.contributionservice.services.H2;
 
 import jakarta.transaction.Transactional;
 import org.example.contributionservice.entities.Contribution;
+import org.example.contributionservice.entities.dto.ContributionDTO;
 import org.example.contributionservice.repositories.ContributionRepository;
 import org.example.contributionservice.services.ContributionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,24 @@ public class ContributionServiceH2Impl implements ContributionService {
 
     @Override
     public Contribution getContributionById(Long id) {
-        return contributionRepository.findById(id).get();
+        return contributionRepository.findById(id).orElseThrow(() -> new RuntimeException("Contribution not found"));
     }
 
     @Override
-    public Contribution createContribution(Contribution contribution) {
-        return contributionRepository.save(contribution);
+    public Contribution createContribution(ContributionDTO dto) {
+        return contributionRepository.save(dto.toContribution());
     }
 
     @Override
-    public Contribution updateContribution(Contribution contribution) {
-        return null;
+    public Contribution updateContribution(ContributionDTO dto, Long contributionId) throws RuntimeException {
+        Contribution contribution = this.getContributionById(contributionId);
+        if (contribution == null) {
+            throw new RuntimeException("Contribution not found");
+        } else {
+            contribution.setContributionDate(dto.contributionDate());
+            contribution.setAmount(dto.amount());
+            return contributionRepository.save(contribution);
+        }
     }
 
     @Override
