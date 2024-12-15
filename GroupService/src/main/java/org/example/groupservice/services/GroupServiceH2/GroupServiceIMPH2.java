@@ -2,6 +2,7 @@ package org.example.groupservice.services.GroupServiceH2;
 
 import jakarta.transaction.Transactional;
 import org.example.groupservice.entities.Group;
+import org.example.groupservice.entities.dto.GroupDTO;
 import org.example.groupservice.repositories.GroupRepository;
 import org.example.groupservice.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,24 @@ import java.util.List;
 @Transactional
 public class GroupServiceIMPH2 implements GroupService {
 
+    @Autowired
     GroupRepository groupRepository;
 
-    @Autowired
-    public GroupServiceIMPH2(GroupRepository groupRepository) {}
-
     @Override
-    public Group createGroup(Group group) {
-        return groupRepository.save(group);
+    public Group createGroup(GroupDTO dto) {
+        return groupRepository.save(dto.toGroup());
     }
 
     @Override
-    public Group updateGroup(Group group) {
-        return null;
+    public Group updateGroup(GroupDTO dto, Long groupId) throws RuntimeException{
+        Group group = this.getGroup(groupId);
+        if (group == null) {
+            throw new RuntimeException("Group not found");
+        } else {
+            group.setGroupName(dto.groupName());
+            group.setDescription(dto.description());
+            return groupRepository.save(group);
+        }
     }
 
     @Override
