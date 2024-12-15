@@ -1,7 +1,9 @@
 package org.example.groupservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor  @AllArgsConstructor
+@NoArgsConstructor  @AllArgsConstructor @Builder
 @Table(name = "groupDaret")
 public class Group {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,7 @@ public class Group {
     private String groupName;
     private String description;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<GroupMember> members;
 }
